@@ -1,10 +1,11 @@
 <?php
 
 namespace Database\Seeders;
-
 use App\Models\Page;
+use App\Models\User;
 use Illuminate\Database\Seeder;
-
+use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Str;
 class DatabaseSeeder extends Seeder
 {
     /**
@@ -25,6 +26,14 @@ class DatabaseSeeder extends Seeder
         $page->slug = 'about-us';
         $page->content = 'lorem';
         $page->save();
+
+        $user = new User();
+        $user->name = 'Rakibul Islam';
+        $user->email = 'rakib@website.com';
+        $user->email_verified_at = now();
+        $user->password = Hash::make('rakib@website.com');
+        $user->remember_token = Str::random(10);
+        $user->save();
 
         \App\Models\Location::factory(10)->create();
         \App\Models\Property::factory(50)->create();
